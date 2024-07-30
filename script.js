@@ -7,6 +7,7 @@ let todoList = document.querySelector(".todo-list");
 // Event Listening 
 
 button.addEventListener("click", addingTodo);
+todoList.addEventListener("click", deleteCheck);
 
 // Functions 
 
@@ -19,10 +20,10 @@ function addingTodo(event){
 
     // creating a li 
     let litodo = document.createElement("li");
-    litodo.innerText = "Hey";
+    litodo.innerText = inputValue.value;
     litodo.classList.add("todo-item");
     todoDiv.appendChild(litodo);
-    console.log(todoDiv);
+    // console.log(todoDiv);
 
     //checked button
     let checkedBtn = document.createElement("button");
@@ -33,9 +34,27 @@ function addingTodo(event){
     // delete button 
     let delBtn = document.createElement("button");
     delBtn.innerHTML= '<i class="fas fa-trash"></i>';
-    delBtn.classList.add("checked-btn");
+    delBtn.classList.add("trash-btn");
     todoDiv.appendChild(delBtn);
 
     // appending to ul 
     todoList.appendChild(todoDiv);
+    // Clear todo inputValue 
+    inputValue.value="";
+}
+
+function deleteCheck(e){
+    let item = e.target;
+    // deleting todo 
+    if(item.classList[0] === "trash-btn"){
+        let todos = item.parentElement;
+        todos.remove();
+    }
+
+    //check mark
+
+    if(item.classList[0] === "checked-btn"){
+        let todos = item.parentElement;
+        todos.classList.toggle("completed");
+    }
 }
